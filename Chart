@@ -1,0 +1,66 @@
+# This is the pie chart for Ancestry availability
+import numpy as np
+import matplotlib.pyplot as plt
+
+reply=[21, 21, 7, 65]
+reason=['Available in the publication','Available upon request','Not available upon request','Unavailable']
+
+plt.pie(reply, labels=reason, autopct='%2.1f%%')
+plt.legend(loc='upper center', bbox_to_anchor=(0.5, -0.05), ncol=2)
+
+plt.title('Ancestry availability')
+
+plt.savefig("reasons_for_sharing.png", dpi=300, bbox_inches='tight', pad_inches=2) 
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+# This is the bar chart of ancestry distribution over years
+import matplotlib.pyplot as plt
+import numpy as  np
+
+
+labels = ['2009-2015', '2016-2018', '2019-2021']
+European = [92.55, 88.95, 82.89]
+Asian = [5.96, 9.03, 10.72]
+African = [1.49, 2.02, 6.39]
+
+b_African = list(np.add(European,Asian))
+
+width = 0.35
+
+
+fig, ax = plt.subplots()
+
+
+ax.bar(labels, European, width, label='European')
+ax.bar(labels, Asian, width, bottom=European,
+       label='Asian')
+ax.bar(labels, African, width, bottom=b_African,
+       label='African')
+
+ax.set_ylabel('Percentage')
+ax.set_title('Ancestry Distribution over Years')
+ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.1), ncol=3)
+
+
+
+plt.savefig('Ancestry_distribution_overyears2.png', dpi=300, bbox_inches='tight', pad_inches=2)
+------------------------------------------------------------------------------------------------------------------------------------
+
+# pie chart for ancestry distribution
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+
+reply=[2809, 135, 17, 301, 79]
+reason=['European','African','Native American or Alaska Native', 'Asian', 'Other']
+
+plt.pie(reply, autopct='%2.1f%%', labels=reason, pctdistance=1.2, labeldistance=1.4)
+plt.legend(loc='upper center', bbox_to_anchor=(0.5, -0.05), ncol=2)
+
+plt.title('Ancestry Distribution')
+
+#plt.savefig("ancestry_distribution.png", dpi=300, bbox_inches='tight', pad_inches=2) 
+
+
+
+
