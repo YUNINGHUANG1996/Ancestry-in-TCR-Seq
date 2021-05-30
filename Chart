@@ -1,66 +1,131 @@
-# This is the pie chart for Ancestry availability
+# Comparisons of the proportion of study participants’ reported ancestry information among total study participants and total studie
+
+import numpy as np
+import pandas as pd
+from pandas import Series, DataFrame
+import matplotlib.pyplot as plt
+
+x = ['Number of Participants', 'Number of Studies']
+
+data1 = np.array([84.1, 58.9])
+data2 = np.array([9.0, 25.0])
+data3 = np.array([4.0, 10.7])
+data4 = np.array([2.9, 5.4])
+
+
+fig, ax= plt.subplots(figsize=(8,6))
+
+
+plt.bar(x, data1, width=0.5,)
+plt.bar(x, data2, bottom=data1, width=0.5,)
+plt.bar(x, data3, bottom=data1+data2, width=0.5,)
+plt.bar(x, data4, bottom=data1+data2+data3, width=0.5)
+
+
+#for i in range(len(x)):
+    #plt.text(i,data1[i], data1[i], ha= 'center', va='bottom')
+
+
+plt.ylabel('Percentage')
+plt.legend(["European", "Asian", "African", "Other"], loc='upper center', bbox_to_anchor=(0.5, -0.06), ncol=4)
+plt.title('Comparisons of ancestry distribution')
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+# Boxplot of the number of study participants in each ancestry group among the TCR-Seq studies
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+import seaborn as sns
+
+%matplotlib inline
+
+df = pd.read_excel('ba1.xlsx')
+df.head()
+
+sns.set(style='whitegrid')
+
+fig, ax= plt.subplots(figsize=(10,8))
+
+sns.boxplot(data=df, width=0.5)
+#sns.violinplot(data=df, width=0.5, inner="point")
+
+plt.title('Number of study participants')
+plt.xlabel('Ancestry')
+plt.ylabel('Number of study participants')
+ax.set_yscale('log')
+
+ax.set_ylim([1,1.5E3])
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+# The proportion of US-Based TCR-Seq studies of the reported ethnic information
+
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+
+reply=[1923, 84]
+reason=['Non-Hispanic','Hispanic']
+colors = ['grey', 'lightblue']
+
+
+plt.pie(reply, autopct='%2.1f%%', labels=['']*2, pctdistance=1.2, labeldistance=1.4, startangle=45, colors=colors)
+plt.legend(loc='upper center', labels = reason, bbox_to_anchor=(0.5, -0.08), ncol=2)
+
+plt.title('Reported Ethnic information')
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+# Changes in the proportion of ancestry over years
+
+import matplotlib.pyplot as plt
+import numpy as  np
+
+
+times = ['2009-2015', '2016-2018', '2019-2021']
+labels = ["European", "Asian", "African", "Other"]
+European = [92.55, 83.57, 82.52]
+Asian = [5.96, 8.55, 10.68]
+African = [1.49, 1.89, 6.37]
+Other = [0, 5.99, 0.43]
+
+Data = np.array([European, Asian, African, Other])
+
+width = 0.35
+
+
+fig, ax = plt.subplots(figsize=(8,8))
+
+for i in range(4):
+    ax.bar(times, Data[i], width, label=labels[i], bottom = np.sum(Data[0:i,:], axis=0))
+
+for row in range(3):
+    for people in range(4):
+        if (row, people) != (0,3):
+            ax.text(row+0.2, np.sum(Data[0:people, row]) + (Data[people,row]/2), "{:.2f}".format(Data[people, row]))
+
+
+ax.set_xlim([-0.4,2.4])
+ax.set_ylim([0,110])
+ax.set_ylabel('Percentage')
+ax.set_title('Ancestry Distribution over Years')
+ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.1), ncol=4)
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+# The availability of ancestry information among the 114 TCR-Seq studies
+
 import numpy as np
 import matplotlib.pyplot as plt
 
 reply=[21, 21, 7, 65]
 reason=['Available in the publication','Available upon request','Not available upon request','Unavailable']
 
-plt.pie(reply, labels=reason, autopct='%2.1f%%')
-plt.legend(loc='upper center', bbox_to_anchor=(0.5, -0.05), ncol=2)
+plt.pie(reply, labels=['']*4, autopct='%2.1f%%')
+plt.legend(loc='upper center', labels = reason, bbox_to_anchor=(0.5, -0.05), ncol=2)
 
 plt.title('Ancestry availability')
 
-plt.savefig("reasons_for_sharing.png", dpi=300, bbox_inches='tight', pad_inches=2) 
---------------------------------------------------------------------------------------------------------------------------------------------
-
-# This is the bar chart of ancestry distribution over years
-import matplotlib.pyplot as plt
-import numpy as  np
-
-
-labels = ['2009-2015', '2016-2018', '2019-2021']
-European = [92.55, 88.95, 82.89]
-Asian = [5.96, 9.03, 10.72]
-African = [1.49, 2.02, 6.39]
-
-b_African = list(np.add(European,Asian))
-
-width = 0.35
-
-
-fig, ax = plt.subplots()
-
-
-ax.bar(labels, European, width, label='European')
-ax.bar(labels, Asian, width, bottom=European,
-       label='Asian')
-ax.bar(labels, African, width, bottom=b_African,
-       label='African')
-
-ax.set_ylabel('Percentage')
-ax.set_title('Ancestry Distribution over Years')
-ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.1), ncol=3)
-
-
-
-plt.savefig('Ancestry_distribution_overyears2.png', dpi=300, bbox_inches='tight', pad_inches=2)
-------------------------------------------------------------------------------------------------------------------------------------
-
-# pie chart for ancestry distribution
-import numpy as np
-import matplotlib.pyplot as plt
-import pandas as pd
-
-reply=[2809, 135, 17, 301, 79]
-reason=['European','African','Native American or Alaska Native', 'Asian', 'Other']
-
-plt.pie(reply, autopct='%2.1f%%', labels=reason, pctdistance=1.2, labeldistance=1.4)
-plt.legend(loc='upper center', bbox_to_anchor=(0.5, -0.05), ncol=2)
-
-plt.title('Ancestry Distribution')
-
-#plt.savefig("ancestry_distribution.png", dpi=300, bbox_inches='tight', pad_inches=2) 
-
-
-
-
+#plt.savefig("reasons_for_sharing0528.png", dpi=300, bbox_inches='tight', pad_inches=2) 
