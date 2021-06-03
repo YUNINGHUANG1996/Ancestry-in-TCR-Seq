@@ -1,4 +1,44 @@
-# Comparisons of the proportion of study participants’ reported ancestry information among total study participants and total studie
+# The availability of ancestry information among the 114 TCR-Seq studies
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+reply=[21, 21, 7, 65]
+reason=['Share in the publication','Share upon request','Not available upon request','Unavailable']
+
+c=['#FF6A6A','#CD69C9','#9B30FF','#FFC0CB']
+
+plt.pie(reply, labels=['']*4, autopct='%2.1f%%', colors=c)
+plt.legend(loc='upper center', labels = reason, bbox_to_anchor=(0.5, -0), ncol=1, fontsize=15)
+
+plt.title('Ancestry availability')
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+#TCR-Seq Studies reported with Mono-ancestry/Trans-ancestry Information
+
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+
+reply=[33, 9]
+reason=['Mono-ancestry','Trans-ancestry']
+c=['#B2DFEE','#7D9EC0']
+
+plt.rcParams['font.size'] = 15.0
+
+plt.pie(reply, autopct='%2.1f%%', labels=['']*2, labeldistance=1, startangle=90, colors=c)
+
+
+plt.legend(loc='upper center', bbox_to_anchor=(0.5, -0), ncol=1, labels=reason)
+
+plt.title('TCR-Seq Studies reported with Mono-ancestry/Trans-ancestry Information')
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+# Comparisons of the proportion of study participants’ reported ancestry information among total study participants and total studies
 
 import numpy as np
 import pandas as pd
@@ -30,7 +70,29 @@ plt.ylabel('Percentage')
 plt.legend(["European", "Asian", "African", "Other"], loc='upper center', bbox_to_anchor=(0.5, -0.06), ncol=4)
 plt.title('Comparisons of ancestry distribution')
 
+
 --------------------------------------------------------------------------------------------------------------------------------------------
+
+# The proportion of US-Based TCR-Seq studies of the reported ethnic information
+
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+
+reply=[1923, 84]
+reason=['Non-Hispanic','Hispanic']
+colors = ['#FFC125', '#FFF68F']
+
+plt.rcParams['font.size'] = 15.0
+
+
+plt.pie(reply, autopct='%2.1f%%', labels=['']*2, pctdistance=1.25, labeldistance=1.4, startangle=45, colors=colors)
+plt.legend(loc='upper center', labels = reason, bbox_to_anchor=(0.5, 0), ncol=2, fontsize=15)
+
+#plt.title('Reported Ethnic information')
+
+
+------------------------------------------------------------------------------------------------------------------------------------
 
 # Boxplot of the number of study participants in each ancestry group among the TCR-Seq studies
 
@@ -41,40 +103,31 @@ import seaborn as sns
 
 %matplotlib inline
 
-df = pd.read_excel('ba1.xlsx')
+df = pd.read_excel('ancestryboxplot222.xlsx')
 df.head()
 
+my_colors = ["#1C86EE", "#FF7F24", "#32CD32"]
+
 sns.set(style='whitegrid')
+sns.set_palette( my_colors )
+
+plt.rcParams['font.size'] = 15.0
 
 fig, ax= plt.subplots(figsize=(10,8))
 
-sns.boxplot(data=df, width=0.5)
+
+sns.boxplot(x= 'ancestry', y='n', data=df, width=0.5)
+sns.stripplot(x= 'ancestry', y='n', data=df, marker='o', alpha=0.5, color='black')
 #sns.violinplot(data=df, width=0.5, inner="point")
 
-plt.title('Number of study participants')
-plt.xlabel('Ancestry')
-plt.ylabel('Number of study participants')
+
+#plt.title('Number of study participants')
+plt.xlabel('Ancestry', fontsize=15)
+plt.ylabel('Number of study participants', fontsize=15)
 ax.set_yscale('log')
 
 ax.set_ylim([1,1.5E3])
 
-------------------------------------------------------------------------------------------------------------------------------------
-
-# The proportion of US-Based TCR-Seq studies of the reported ethnic information
-
-import numpy as np
-import matplotlib.pyplot as plt
-import pandas as pd
-
-reply=[1923, 84]
-reason=['Non-Hispanic','Hispanic']
-colors = ['grey', 'lightblue']
-
-
-plt.pie(reply, autopct='%2.1f%%', labels=['']*2, pctdistance=1.2, labeldistance=1.4, startangle=45, colors=colors)
-plt.legend(loc='upper center', labels = reason, bbox_to_anchor=(0.5, -0.08), ncol=2)
-
-plt.title('Reported Ethnic information')
 
 ------------------------------------------------------------------------------------------------------------------------------------
 
@@ -113,19 +166,74 @@ ax.set_ylabel('Percentage')
 ax.set_title('Ancestry Distribution over Years')
 ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.1), ncol=4)
 
+
 ------------------------------------------------------------------------------------------------------------------------------------
 
-# The availability of ancestry information among the 114 TCR-Seq studies
+# Proportion of overall TCR-Seq Covid patients
 
 import numpy as np
 import matplotlib.pyplot as plt
+import pandas as pd
 
-reply=[21, 21, 7, 65]
-reason=['Available in the publication','Available upon request','Not available upon request','Unavailable']
+reply=[952, 101, 60, 117]
+reason=['European','African', 'Asian', 'Other']
 
-plt.pie(reply, labels=['']*4, autopct='%2.1f%%')
-plt.legend(loc='upper center', labels = reason, bbox_to_anchor=(0.5, -0.05), ncol=2)
+plt.rcParams['font.size'] = 15.0
 
-plt.title('Ancestry availability')
 
-#plt.savefig("reasons_for_sharing0528.png", dpi=300, bbox_inches='tight', pad_inches=2) 
+plt.pie(reply, autopct='%2.1f%%', labels=['']*4, pctdistance=1.25, labeldistance=1.4)
+plt.legend(loc='upper center', labels=reason, bbox_to_anchor=(0.5, -0.0), ncol=2, fontsize=15)
+
+#plt.title('Proportion of ancestry of Covid patients' )
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+# Invidual cohort's proportion of ancestry
+
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib import rc
+import pandas as pd
+ 
+# y-axis in bold
+#rc('font', , weight='bold')
+ 
+# Values of each group
+bars1 = [100, 77.1, 0, 100, 76.9]
+bars2 = [0, 3.3, 100, 0, 17.9]
+bars3 = [0, 9.0, 0, 0, 5.2]
+bars4 = [0, 10.6,0, 0, 0]
+ 
+# Heights of bars1 + bars2
+bars = np.add(bars1, bars2).tolist()
+barb = np.add(bars, bars3).tolist()
+ 
+# The position of the bars on the x-axis
+r = [0,1,2,3,4]
+ 
+    
+plt.rcParams['font.size'] = 15.0
+
+# Names of group and bar width
+#names = ['Schultheiß, C. et al.','Nolan, S. et al. ','Liao, M. et al.','Shomuradova, A. S. et al.','Kusnadi, A. et al. ']
+barWidth = 1
+
+    
+# Create brown bars
+plt.bar(r, bars1, edgecolor='white', width=barWidth)
+# Create green bars (middle), on top of the first ones
+plt.bar(r, bars2, bottom=bars1, edgecolor='white', width=barWidth)
+# Create green bars (top)
+plt.bar(r, bars3, bottom=bars, edgecolor='white', width=barWidth)
+plt.bar(r, bars4, bottom=barb, edgecolor='white', width=barWidth)
+
+ 
+# Custom X axis
+plt.xticks(r, [])
+#plt.xticks(rotation=45)
+#plt.xlabel("Studies")
+plt.ylabel('Percentage')
+
+plt.legend(['European','Asian','African','Other'], loc='upper center', bbox_to_anchor=(0.5, -0.03), ncol=2)
+
